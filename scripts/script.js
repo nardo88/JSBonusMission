@@ -45,7 +45,7 @@
                 geroes.insertAdjacentElement('afterbegin', card)
                 overlay.style.display = 'none';
             })
-        }, 1500)
+        }, 1000)
         
     }
 
