@@ -257,3 +257,11 @@
 .visible{
     left: 50px;
 }
+
+
+@media (max-width: 1400px){
+    .container{
+        padding: 0 10px;
+    }
+
+}
