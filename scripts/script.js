@@ -3,7 +3,7 @@
     const selectData = new Set()
     let base = [];
 
-    fetch('../base/dbHeroes.json')
+    fetch('./base/dbHeroes.json')
         .then(response => response.json())
         .then(data => {
             data.forEach(item => base.push(item))
