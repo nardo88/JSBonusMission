@@ -1,5 +1,6 @@
     const geroes = document.querySelector('.geroes__wrapper');
     const select = document.querySelector('.header__select');
+    const goTop = document.querySelector('.goTop');
     const selectData = new Set()
     let base = [];
 
@@ -65,6 +66,19 @@
                 }
             }))
         }
+    })
+
+    document.addEventListener('scroll', () => {
+        if(window.pageYOffset > 100 ){
+            goTop.classList.add('visible')
+        } else {
+            goTop.classList.remove('visible')
+
+        }
+    })
+
+    goTop.addEventListener('click', () => {
+        window.scrollTo({top: 0, behavior: 'smooth'})
     })
 
     

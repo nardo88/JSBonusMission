@@ -233,3 +233,27 @@
     margin-bottom: 10px;
     padding-left: 4px;
 }
+
+.goTop{
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    left: -100%;
+    bottom: 50px;
+    z-index: 100;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    font-size: 20px;
+    opacity: .3;
+    transition: .3s;
+    border-radius: 4px;
+
+    &:hover{
+        opacity: 1;
+    }
+}
+
+.visible{
+    left: 50px;
+}
