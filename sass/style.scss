@@ -424,8 +424,8 @@
 .trailer {
     position: fixed;
     top: 100px;
-    // left: -100% ;
-    left: 50%;
+    left: -100% ;
+    // left: 50%;
     transform: translateX(-50%);
     transition: .5s;
     z-index: 1000;

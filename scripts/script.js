@@ -27,6 +27,7 @@
     const togleTrailer = () => {
         overlayTrayler.classList.toggle('flex')
         trailer.classList.toggle('open')
+        resetPlayer()
     }
 
     const togglePlay = () => {
@@ -108,6 +109,7 @@
     const resetPlayer = () => {
         videoProgress.value = 0
         videoTimeTotal.textContent = '00:00'
+        videoPlayer.currentTime = 0
     }
 
     select.addEventListener('change', () => {
@@ -183,7 +185,6 @@
 		const value = videoProgress.value
 
         videoPlayer.currentTime = (value * duration) / 100
-        console.log(videoProgress.value);
 	})
 
 	videoVolume.addEventListener('input', () => {
