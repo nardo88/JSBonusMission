@@ -16,6 +16,163 @@
     z-index: -1;
 }
 
+
+.header {
+    margin-top: 50px;
+
+    // .header__wrapper
+
+    &__wrapper {
+       position: relative;
+
+    }
+
+    // .header__top
+
+    &__top {
+        display: flex;
+    }
+
+    // .header__logo
+
+    &__logo {
+        width: 250px;
+        position: absolute;
+        top: -20px;
+
+        img{
+            width: 100%;
+            object-fit: cover;
+        }
+    }
+
+    // .header__nav
+
+    &__nav {
+        background: rgba(255, 255, 255, .7);
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        padding: 20px 0;
+    }
+
+    // .header__link
+
+    &__link {
+        font-family: sans-serif;
+        font-size: 16px;
+        color: rgb(70, 69, 69);
+        font-weight: bold;
+        text-decoration: none;
+        margin: 0 10px;
+        position: relative;
+
+        &:after{
+            content: '';
+            width: 0%;
+            height: 2px;
+            background: rgb(70, 69, 69);
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            transition: .3s;
+
+        }
+
+        &:hover{
+           &:after{
+            width: 100%;
+
+           } 
+        }
+    }
+
+    // .header__slider
+
+    &__slider {
+        
+
+    }
+}
+
+.slider {
+    width: 650px;
+    border-radius: 5px;
+    margin-left: auto;
+    padding: 20px 20px 10px;
+    margin-right: auto;
+    margin-top: 50px;
+    background: rgba(255, 255, 255, .7);
+    // .slider__wrapper
+
+    &__wrapper {
+    }
+
+    // .slider__content
+
+    &__content {
+        display: block;
+        height: 310px;
+        position: relative;
+    }
+
+    // .slider__item
+
+    &__item {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        transition: opacity .5s;
+        opacity: 0;
+        height: 300px;
+
+
+        &--active{
+            opacity: 1;
+        }
+
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        
+    }
+
+    // .slider__dots
+
+    &__dots {
+        margin-top: 10px;
+        padding: 10px 0;
+        display: flex;
+        justify-content: center;
+        z-index: 100;
+    }
+
+    // .slider__dot
+
+    &__dot {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #fff;
+        margin-left: 20px;
+        position: relative;
+        border: 3px solid #474747;
+        cursor: pointer;
+
+
+        &--active{
+            background: rgb(156, 156, 156);
+        }
+    }
+}
+
+
 .controls {
     margin-top: 20px;
 

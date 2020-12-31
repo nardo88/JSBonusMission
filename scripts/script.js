@@ -31,30 +31,30 @@
     }
 
     const togglePlay = () => {
-		if (videoPlayer.paused){
-			videoPlayer.play()
-		} else {
-			videoPlayer.pause()
-		}
+        if (videoPlayer.paused) {
+            videoPlayer.play()
+        } else {
+            videoPlayer.pause()
+        }
     }
     const stopPlay = () => {
-		videoPlayer.pause()
-		videoPlayer.currentTime = 0
-	}
-    
-    const toggleIcon = () => {
-		if (videoPlayer.paused){
-			play.classList.remove('fa-pause')
-			play.classList.add('fa-play')
-
-		} else {
-			play.classList.add('fa-pause')
-			play.classList.remove('fa-play')
-		}
+        videoPlayer.pause()
+        videoPlayer.currentTime = 0
     }
-    
-    const addZero = (n) => n < 10 ? '0'+ n : n
-	
+
+    const toggleIcon = () => {
+        if (videoPlayer.paused) {
+            play.classList.remove('fa-pause')
+            play.classList.add('fa-play')
+
+        } else {
+            play.classList.add('fa-pause')
+            play.classList.remove('fa-play')
+        }
+    }
+
+    const addZero = (n) => n < 10 ? '0' + n : n
+
 
 
 
@@ -90,7 +90,7 @@
                 overlay.style.display = 'none';
             })
         }, 400)
-        
+
     }
 
     const setSelect = data => {
@@ -116,7 +116,7 @@
         if (select.value === 'default') {
             render(base)
             videoPlayer.src = `./tralers/default.mp4`
-            
+
         } else {
             render(base.filter(item => {
                 if (item.movies) {
@@ -151,7 +151,7 @@
         togleTrailer();
     })
 
-    
+
     play.addEventListener('click', () => {
         togglePlay()
     })
@@ -161,54 +161,122 @@
     })
 
     videoPlayer.addEventListener('play', toggleIcon)
-	videoPlayer.addEventListener('pause', toggleIcon)
+    videoPlayer.addEventListener('pause', toggleIcon)
     stop.addEventListener('click', stopPlay)
-    
+
     videoPlayer.addEventListener('timeupdate', () => {
-		const currentTime = videoPlayer.currentTime
-		const duration = videoPlayer.duration
+        const currentTime = videoPlayer.currentTime
+        const duration = videoPlayer.duration
 
-		let minutePassed = Math.floor(currentTime / 60)
-		let secondsPassed = Math.floor(currentTime % 60)
+        let minutePassed = Math.floor(currentTime / 60)
+        let secondsPassed = Math.floor(currentTime % 60)
 
-		let minuteTotal = Math.floor(duration / 60)
-		let secondsTotal = Math.floor(duration % 60)
+        let minuteTotal = Math.floor(duration / 60)
+        let secondsTotal = Math.floor(duration % 60)
 
-		videoProgress.value = (currentTime / duration) * 100
+        videoProgress.value = (currentTime / duration) * 100
 
-		videoTimePassed.textContent = `${addZero(minutePassed)}:${addZero(secondsPassed)}`
-		videoTimeTotal.textContent = `${addZero(minuteTotal)}:${addZero(secondsTotal)}`
+        videoTimePassed.textContent = `${addZero(minutePassed)}:${addZero(secondsPassed)}`
+        videoTimeTotal.textContent = `${addZero(minuteTotal)}:${addZero(secondsTotal)}`
     })
-    
+
     videoProgress.addEventListener('input', () => {
-		const duration = videoPlayer.duration
-		const value = videoProgress.value
+        const duration = videoPlayer.duration
+        const value = videoProgress.value
 
         videoPlayer.currentTime = (value * duration) / 100
-	})
+    })
 
-	videoVolume.addEventListener('input', () => {
-		videoPlayer.volume = videoVolume.value / 100
-	})
+    videoVolume.addEventListener('input', () => {
+        videoPlayer.volume = videoVolume.value / 100
+    })
 
-	videoPlayer.volume = 0.5
+    videoPlayer.volume = 0.5
 
-	videoVolume.value = videoPlayer.volume * 100
+    videoVolume.value = videoPlayer.volume * 100
 
-	const changeVolume = (val) => {
-			videoPlayer.volume = val / 100
-			videoVolume.value = val
+    const changeVolume = (val) => {
+        videoPlayer.volume = val / 100
+        videoVolume.value = val
     }
-    
+
     let videoVolumeValue
 
-	faVolumeDown.addEventListener('click', () => {
-				
-		if (videoPlayer.volume != 0 ){
-			videoVolumeValue = videoVolume.value
-			changeVolume(0)
+    faVolumeDown.addEventListener('click', () => {
 
-		} else {
-			changeVolume(videoVolumeValue)
-		}
-	})
+        if (videoPlayer.volume != 0) {
+            videoVolumeValue = videoVolume.value
+            changeVolume(0)
+
+        } else {
+            changeVolume(videoVolumeValue)
+        }
+    })
+
+
+    const slider = () => {
+        const slide = document.querySelectorAll('.slider__item');
+        const slider = document.querySelector('.slider__content');
+        const sliderDots = document.querySelector('.slider__dots');
+        // добавление dot в слайдер
+        for (let i = 0; i < slide.length; i++) {
+            const dotItem = document.createElement('li');
+            dotItem.classList.add('slider__dot');
+            sliderDots.insertAdjacentElement('afterbegin', dotItem);
+        };
+        // только затем получаем все dot
+        const dot = document.querySelectorAll('.slider__dot');
+        // и первому даем активный класс
+        dot[0].classList.add('slider__dot--active');
+
+        let currentSlide = 0,
+            interval;
+
+        const prevSlide = (elem, index, strClass) => {
+            elem[index].classList.remove(strClass);
+        };
+
+        const nextSlide = (elem, index, strClass) => {
+            elem[index].classList.add(strClass);
+
+        };
+
+        const stopSlide = () => {
+            clearInterval(interval);
+        };
+
+
+        const autoPlaySlide = () => {
+            prevSlide(slide, currentSlide, 'slider__item--active');
+            prevSlide(dot, currentSlide, 'slider__dot--active');
+            currentSlide++;
+            if (currentSlide >= slide.length) {
+                currentSlide = 0;
+            };
+            nextSlide(slide, currentSlide, 'slider__item--active');
+            nextSlide(dot, currentSlide, 'slider__dot--active');
+
+        };
+
+        const startSlide = (time = 1500) => {
+            interval = setInterval(autoPlaySlide, time);
+        };
+
+        sliderDots.addEventListener('mouseover', e => {
+            if (e.target.matches('.slider__dot')) {
+                stopSlide();
+            };
+        });
+    
+        sliderDots.addEventListener('mouseout', e => {
+            if (e.target.matches('.slider__dot')) {
+                startSlide(1500);
+            };
+        });
+
+        startSlide()
+
+
+    }
+
+    slider()
