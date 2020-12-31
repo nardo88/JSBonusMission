@@ -2,6 +2,17 @@
     const select = document.querySelector('.header__select');
     const goTop = document.querySelector('.goTop');
     const overlay = document.querySelector('.overlay');
+    const showTrailer = document.querySelector('.show-trailer');
+    const trailer = document.querySelector('.trailer');
+    const overlayTrayler = document.querySelector('.overlay-trayler');
+    const play = document.querySelector('.play');
+    const stop = document.querySelector('.stop');
+    const videoPlayer = document.querySelector('.video-player');
+    const videoProgress = document.querySelector('.video-progress')
+    const videoTimePassed = document.querySelector('.video-time__passed')
+    const videoTimeTotal = document.querySelector('.video-time__total')
+    const videoVolume = document.querySelector('.video-volume')
+    const faVolumeDown = document.querySelector('.fa-volume-down')
     const selectData = new Set()
     let base = [];
 
@@ -12,6 +23,38 @@
             setSelect(base)
             render(base)
         })
+
+    const togleTrailer = () => {
+        overlayTrayler.classList.toggle('flex')
+        trailer.classList.toggle('open')
+    }
+
+    const togglePlay = () => {
+		if (videoPlayer.paused){
+			videoPlayer.play()
+		} else {
+			videoPlayer.pause()
+		}
+    }
+    const stopPlay = () => {
+		videoPlayer.pause()
+		videoPlayer.currentTime = 0
+	}
+    
+    const toggleIcon = () => {
+		if (videoPlayer.paused){
+			play.classList.remove('fa-pause')
+			play.classList.add('fa-play')
+
+		} else {
+			play.classList.add('fa-pause')
+			play.classList.remove('fa-play')
+		}
+    }
+    
+    const addZero = (n) => n < 10 ? '0'+ n : n
+	
+
 
 
     const render = data => {
@@ -45,7 +88,7 @@
                 geroes.insertAdjacentElement('afterbegin', card)
                 overlay.style.display = 'none';
             })
-        }, 1000)
+        }, 400)
         
     }
 
@@ -62,9 +105,15 @@
         }
     }
 
+    const resetPlayer = () => {
+        videoProgress.value = 0
+        videoTimeTotal.textContent = '00:00'
+    }
+
     select.addEventListener('change', () => {
         if (select.value === 'default') {
             render(base)
+            videoPlayer.src = `./tralers/default.mp4`
             
         } else {
             render(base.filter(item => {
@@ -72,7 +121,10 @@
                     return item.movies.includes(select.value)
                 }
             }))
+            let path = select.value.replace(/:/, '')
+            videoPlayer.src = `./tralers/${path}.mp4`
         }
+        resetPlayer();
     })
 
     document.addEventListener('scroll', () => {
@@ -91,5 +143,71 @@
         })
     })
 
+    showTrailer.addEventListener('click', togleTrailer)
+    overlayTrayler.addEventListener('click', () => {
+        stopPlay();
+        togleTrailer();
+    })
 
-   
+    
+    play.addEventListener('click', () => {
+        togglePlay()
+    })
+
+    videoPlayer.addEventListener('click', () => {
+        togglePlay()
+    })
+
+    videoPlayer.addEventListener('play', toggleIcon)
+	videoPlayer.addEventListener('pause', toggleIcon)
+    stop.addEventListener('click', stopPlay)
+    
+    videoPlayer.addEventListener('timeupdate', () => {
+		const currentTime = videoPlayer.currentTime
+		const duration = videoPlayer.duration
+
+		let minutePassed = Math.floor(currentTime / 60)
+		let secondsPassed = Math.floor(currentTime % 60)
+
+		let minuteTotal = Math.floor(duration / 60)
+		let secondsTotal = Math.floor(duration % 60)
+
+		videoProgress.value = (currentTime / duration) * 100
+
+		videoTimePassed.textContent = `${addZero(minutePassed)}:${addZero(secondsPassed)}`
+		videoTimeTotal.textContent = `${addZero(minuteTotal)}:${addZero(secondsTotal)}`
+    })
+    
+    videoProgress.addEventListener('input', () => {
+		const duration = videoPlayer.duration
+		const value = videoProgress.value
+
+        videoPlayer.currentTime = (value * duration) / 100
+        console.log(videoProgress.value);
+	})
+
+	videoVolume.addEventListener('input', () => {
+		videoPlayer.volume = videoVolume.value / 100
+	})
+
+	videoPlayer.volume = 0.5
+
+	videoVolume.value = videoPlayer.volume * 100
+
+	const changeVolume = (val) => {
+			videoPlayer.volume = val / 100
+			videoVolume.value = val
+    }
+    
+    let videoVolumeValue
+
+	faVolumeDown.addEventListener('click', () => {
+				
+		if (videoPlayer.volume != 0 ){
+			videoVolumeValue = videoVolume.value
+			changeVolume(0)
+
+		} else {
+			changeVolume(videoVolumeValue)
+		}
+	})

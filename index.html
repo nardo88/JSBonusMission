@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Супергерои киновселенной Marvel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
+    <script defer src="https://www.youtube.com/iframe_api"></script>
     <script defer src="./scripts/script.js"></script>
 </head>
 <body>
@@ -18,6 +20,7 @@
                 <select class="header__select">
                     <option value="default">Все фильмы</option>
                 </select>
+                <button class="show-trailer">Посмотреть трейлер</button>
             </div>
         </div>
     </div>
@@ -25,8 +28,11 @@
 
     <section class="geroes">
         <div class="container">
-            <div class="geroes__wrapper">
+            <div class="geroes__content">
+                <div class="geroes__wrapper">
+                </div>
             </div>
+            
         </div>
     </section>
 
@@ -35,6 +41,35 @@
     <div class="overlay">
         <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
     </div>
+
+    <div class="overlay-trayler">
+        
+    </div>
+    <div class="trailer">
+        <div class="trailer__content">
+            <div class="trailer__video">
+                <video class="video-player" src="./tralers/default.mp4"></video>
+            </div>
+            <div class="trailer__contols">
+                <button class="play fa fa-play"></button>
+                <button class="stop fa fa-stop"></button>
+                <div>
+                    <span class="video-time video-time__passed">00:00</span>
+                    <input type="range" class="video-progress" min="0" max="100" step="0.1" value="0">
+                    <span class="video-time video-time__total">00:00</span>
+                </div>
+                
+                <div class="div">
+                    <span class="video-icon fa fa-volume-down"></span>
+                    <input type="range" class="video-volume" min="0" max="100" step="1" value="100">
+                    <span class="video-icon fa fa-volume-up"></span>
+                </div>
+				
+            </div>
+        </div>
+    </div>
+    
+    
 
 </body>
 </html>
