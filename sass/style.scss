@@ -16,11 +16,11 @@
     z-index: -1;
 }
 
-.header {
+.controls {
     margin-top: 20px;
 
 
-    // .header__wrapper
+    // .controls__wrapper
 
     &__wrapper {
         background: rgba(255, 255, 255, .7);
@@ -29,12 +29,9 @@
 
     }
 
-    // .header__select
+    // .controls__select
 
     &__select {
-        // width: 300px;
-        // outline: none;
-        // padding: 5px;
 
         display: block;
         font-size: 16px;
@@ -60,32 +57,7 @@
         background-size: .65em auto, 100%;
     }
 
-    .select-css::-ms-expand {
-        display: none;
-    }
-
-    .select-css:hover {
-        border-color: #888;
-    }
-
-    .select-css:focus {
-        border-color: #aaa;
-        box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
-        box-shadow: 0 0 0 3px -moz-mac-focusring;
-        color: #222;
-        outline: none;
-    }
-
-    .select-css option {
-        font-weight: normal;
-    }
-
-    *[dir="rtl"] .select-css,
-    :root:lang(ar) .select-css,
-    :root:lang(iw) .select-css {
-        background-position: left .7em top 50%, 0 0;
-        padding: .6em .8em .5em 1.4em;
-    }
+   
 }
 
 

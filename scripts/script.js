@@ -1,5 +1,5 @@
     const geroes = document.querySelector('.geroes__wrapper');
-    const select = document.querySelector('.header__select');
+    const select = document.querySelector('.controls__select');
     const goTop = document.querySelector('.goTop');
     const overlay = document.querySelector('.overlay');
     const showTrailer = document.querySelector('.show-trailer');
