@@ -272,7 +272,7 @@
 
         sliderDots.addEventListener('mouseout', e => {
             if (e.target.matches('.slider__dot')) {
-                startSlide(1500);
+                startSlide(2000);
             };
         });
 
@@ -303,7 +303,7 @@
             }
         })
 
-        startSlide()
+        startSlide(2000)
 
 
     }
