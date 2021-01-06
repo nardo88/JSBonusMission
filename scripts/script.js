@@ -238,7 +238,6 @@
 
         const nextSlide = (elem, index, strClass) => {
             elem[index].classList.add(strClass);
-
         };
 
         const stopSlide = () => {
@@ -249,10 +248,13 @@
         const autoPlaySlide = () => {
             prevSlide(slide, currentSlide, 'slider__item--active');
             prevSlide(dot, currentSlide, 'slider__dot--active');
+
             currentSlide++;
+
             if (currentSlide >= slide.length) {
                 currentSlide = 0;
             };
+
             nextSlide(slide, currentSlide, 'slider__item--active');
             nextSlide(dot, currentSlide, 'slider__dot--active');
 
@@ -267,12 +269,39 @@
                 stopSlide();
             };
         });
-    
+
         sliderDots.addEventListener('mouseout', e => {
             if (e.target.matches('.slider__dot')) {
                 startSlide(1500);
             };
         });
+
+        sliderDots.addEventListener('click', (e) => {
+            const target = e.target;
+
+            if (!target.matches('.slider__dot')) {
+                return;
+            };
+
+            prevSlide(slide, currentSlide, 'slider__item--active');
+            prevSlide(dot, currentSlide, 'slider__dot--active');
+
+            if (e.target.matches('.slider__dot')) {
+                dot.forEach((item, i) => {
+                    if (item === target) {
+                        currentSlide = i;
+
+
+                    };
+                });
+
+                console.log(currentSlide);
+
+
+                nextSlide(slide, currentSlide, 'slider__item--active');
+                nextSlide(dot, currentSlide, 'slider__dot--active');
+            }
+        })
 
         startSlide()
 
